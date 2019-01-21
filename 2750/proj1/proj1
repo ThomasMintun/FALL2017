@@ -1,0 +1,31 @@
+#!/bin/bash
+filesearch(){
+
+        if [ -f "$1" ]; then
+                echo "$1 `du -k "$1" | cut -f1` `file "$1" | cut -d':' -f2`"
+
+        elif [ -h "$1" ]; then
+                echo "$1 Symbolic Link `readlink -f "$1"`"
+
+        elif [ -d "$1" ]; then
+                for i in "$1"/ do
+                                if [ -d "$i" ]; then
+                                        echo "$i `du -k "$1" | cut -f1` `file "$1" | cut -d':' -f2`"
+
+                                elif [ -h "$i" ]; then
+                                        echo "$i Symbolic Link `readlink -f "$1"`"
+                        fi
+                done
+
+        elif [ ! "$1" ]; then
+                for i in ."$1"; do
+                filesearch "$i"
+                done
+
+        else
+                echo "$1 is an Unknown File"
+
+        fi
+}
+filesearch $1
+

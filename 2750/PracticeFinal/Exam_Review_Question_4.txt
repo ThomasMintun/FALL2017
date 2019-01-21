@@ -1,0 +1,6 @@
+4. [15 pt] Explain what a “process” is. What are the normal two steps
+involved in starting a new process, including the functions involved?
+
+// Thanks Michael
+
+A process is when a computer program is currently being executed. If you are currently running a process and want to spawn another you would first use fork(). fork() creates a duplicate of your current process you can then use a function from the  exec() family to turn the child process into a new process. The fork() function was used so that now both processes can run at the same time as opposed to the original process being overwritten by the new process.

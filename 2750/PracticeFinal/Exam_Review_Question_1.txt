@@ -1,0 +1,32 @@
+1. [15 pt] Explain the purpose of the utility make. Explain the format of
+the file needed by make
+
+Make is a utility to help with the design and maintence of programs with multiple files.
+The programmer doesn't have to remember which files need to be recompiled, because make will check which files changed,
+and use that to determine which files need to be recompiled.
+
+Format:
+//copy pasted from slide
+
+CC = gcc                            //variable
+CFLAGS = -g                         //variable
+TARGET = math                       //variable
+OBJS = main.o square.o cube.o       //variable
+$(TARGET): $(OBJS)                  //recipe?
+$(CC) -o $(TARGET) $(OBJS)        //recipe command (note the tab at the start)
+main.o: main.c                      //recipe?
+$(CC) $(CFLAGS) -c main.c         //recipe command (note the tab at the start)
+square.o: square.c                  //recipe?
+$(CC) $(CFLAGS) -c square.c       //recipe command (note the tab at the start)
+cube.o: cube.c                      //recipe?
+$(CC) $(CFLAGS) -c cube.c         //recipe command (note the tab at the start)
+clean:                              //recipe?
+/bin/rm -f *.o $(TARGET)          //recipe command (note the tab at the start)
+
+
+
+// Michael's answer
+Make is best used when working on multiple files that must be compiled together. It allows the user to create the makefile (with the appropriate files included within the code of the makefile) and then compile all the files with the command make. The makefile will compile the files that need recompiling while sorting out the dependency of the files. The typical format is to have a target on the left  separated by a colon with the dependencies on the right, then tabbed underneath is the gcc call. For example:
+    main.o : main.c
+        Gcc -g -c main.c
+Before this you can write a line declaring your executable name and all the object files that it will be dependent on. You can also declare and use variables in the makefile to make changes to your files more easy.

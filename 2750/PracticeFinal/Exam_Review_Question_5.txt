@@ -1,0 +1,18 @@
+5. [15 pt] What is the relationship between 2 commands that communicate
+with the pipe () function? Why is this a problem for communications
+between processes in general [say between a process generating random
+numbers and the consumers of that data] and what a possible solution
+is?
+
+// Thanks @Bailee
+Okay so I came up with this answer by starting with the second half. I googled, problems between process generating numbers and consumers, and came to find something called a Producer-consumer problem. Basically, both processes are utilizing the same buffer. The problem that the processes run into is that the producer is filling the buffer. If the buffer overfills the process will be blocked. The second problem lies with the consumer. The consumer process is pulling the data from the buffer. If it attempts to pull too much it can 1. Return EOF 2. Just return what is left in the pipe. Or 3. Block the reading process. This is on page 334 in the book.
+
+I used that to look for the answer to what those commands would be. It seems like pipe() establishes the buffer. Then the commands fildes[0] or fildes[1] are issues. Fildes[0] establishes reading a pipe while fildes[1] establishes writing the pipe. This is on page 333.
+
+Command f "Critical-section problem" here:
+
+http://cnds.eecs.jacobs-university.de/courses/os-2014/slides.pdf 
+
+I believe that the solution for part 3 or the question may be disabling interrupts or strict alternation.
+
+

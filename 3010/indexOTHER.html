@@ -1,0 +1,169 @@
+<!-- Thomas Mintun -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title> Order Form </title>
+<style>
+h1 {
+font: 200% Arial, Helvetica;
+font-weight: bold;}
+h2 {
+font: 100% Arial, Helvetica;}
+table,
+td {
+  border: 1px solid black;}
+p.red {
+  color: #f00;}
+p.black {
+  color: #000;}
+</style>
+
+<script type="text/javascript">
+var d = document;
+d.g = d.getElementById;
+var qty = [0, 0, 0, 0];
+var shipping = d.g("shipping");
+
+function realNumber() { //determine if real or non negative number
+  var qtyInvalid = [0, 0, 0, 0];
+  for (let i = 1, max = qtyInvalid.length; i < max; i++) {
+    qtyInvalid[i] = (isNaN(qty[i]) || qty[i] < 0);
+  }
+  if (qtyInvalid[1] || qtyInvalid[2] || qtyInvalid[3]) {
+    console.log("The quantity given is not a real number or is a negative number!");
+    return false;
+  }
+  return true;
+}
+
+function total() { // calculate total
+  var over = 0;
+  var price = [0, 0, 0, 0];
+  for (j = 1, max = price.length; j < max; j++) {
+    price[j] = d.g("Price" + j + "").value;
+    qty[j] = d.g("Quantity" + j + "").value;
+  }
+  var totals = 0;
+  var yes = 0;
+  const radix = 10;
+  for (q = 1, max = qty.length; q < max; q++) {
+  over += parseInt(qty[q], radix)
+}  
+  if (!realNumber()) {
+    return false;
+  }
+  for (let k = 1, max2 = price.length; k < max2; k++) {
+    totals += (price[k] * qty[k]);
+  }
+  yes = (totals).toFixed(2);
+  d.g("ProductTotal").innerHTML = "$" + yes;
+  shipping.className = (over > 30) ? "red" : "black";
+return totals;
+}
+
+function checkOut() {
+  var retval = false;
+  var shippingIsRed = (shipping.className == "red");
+  var extraChecked =  d.g("extra").checked;
+  if ( total() ) {
+    retval = (!shippingIsRed &&  !extraChecked)? true :  false;
+  }
+  return retval;
+}
+</script>
+</head>
+<body>
+<div>
+  <h1>Order Form</h1>
+  <h2>Enter the number of widgets you want to order to the box on right of "Quantity: ", click calculate, and then click submit.</h2>
+  <form name="widgets" onsubmit="return checkOut()"  action="http://www.cs.umsl.edu/~schulte/cs3010/"  method="post">
+    <div id="mainTable">
+      <table>
+        <tr>
+          <td>Widget Model:</td>
+          <td>37AX-L</td>
+        </tr>
+        <tr>
+          <td>Price per Unit:</td>
+          <td>$12.45 <input type="hidden" id="Price1" name="Price1" value="12.45" </td>
+        </tr>
+        <tr>
+          <td>State:</td>
+          <td>Missouri</td>
+        </tr>
+        <tr>
+          <td>Quantity:</td>
+          <td> <input type="text" id="Quantity1" name="Quantity1" value="0" </td>
+        </tr>
+      </table>
+      <tr>
+        <td> &nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+      <table>
+        <tr>
+          <td>Widget Model:</td>
+          <td>42XR-J</td>
+        </tr>
+        <tr>
+          <td>Price per Unit:</td>
+          <td>$15.34 <input type="hidden" id="Price2" name="Price2" value="15.34"></td>
+        </tr>
+        <tr>
+          <td>State:</td>
+          <td>Missouri</td>
+        </tr>
+        <tr>
+          <td>Quantity:</td>
+          <td> <input type="text" id="Quantity2" name="Quantity2" value="0"></td>
+        </tr>
+      </table>
+      <tr>
+        <td> &nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+      <table>
+        <tr>
+          <td>Widget Model:</td>
+          <td>93ZZ-A</td>
+        </tr>
+        <tr>
+          <td>Price per Unit:</td>
+          <td>$28.99 <input type="hidden" id="Price3" name="Price3" value="28.99"></td>
+        </tr>
+        <tr>
+          <td>State:</td>
+          <td>Missouri</td>
+        </tr>
+        <tr>
+          <td>Quantity:</td>
+          <td> <input type="text" id="Quantity3" name="Quantity3" value="0"></td>
+        </tr>
+      </table>
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+      <table>
+        <tr>
+          <td>Total Price:</td>
+          <td>
+            <p id="ProductTotal"> 0 </p>
+          </td>
+        </tr>
+        <tr>
+          <td> <input type="checkbox" id="extra" name="extra"> </td>
+          <td>
+            <p id="shipping" class="black">If the quantity exceeds 30 units, there will be extra shipping!</p>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <tr>
+      <td> <input type="button" value="Calculate" onClick="total()"> </td>
+      <td> <input type="Submit" value="Submit" /> </td>
+    </tr>
+  </form>
+</body>
+</html>

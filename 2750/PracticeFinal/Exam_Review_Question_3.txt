@@ -1,0 +1,60 @@
+3. [1 pt each] Fill in the appropriate command and needed options [unless
+specified, in the current directory] or the necessary C function:
+
+/************ BASH **************/
+
+• Find the string “connect” in all .cpp file
+
+grep -l ‘connect’ *.cpp
+
+
+• Send the signal SIGSTOP to the process 24653
+
+kill -SIGSTOP 24653
+
+
+• Find all the files ending in “.host” under the directory
+/var
+
+Find /var -name “*.host”
+
+
+• Open a file to add a program to run periodically
+
+Crontab 0,0,*,*,5 filename
+
+
+• Display the contents of the file “books.db” in both
+octal and characters
+
+od -b books.db; cat books.db;
+
+
+/********* C Programming ***********/
+
+• Function to create a 4-byte block of new memory
+
+malloc(4);
+
+
+• Function to open the text file “x.out” for output
+
+fopen("x.out", "w");
+
+
+• Function to copy a string from ‘lname’ to ‘fname’
+
+strcopy(fname, lname);
+
+
+• Expression to shift ‘rcs’ 3 bits left and then or the
+bits with ‘mask’
+
+rcs << (3 | sizeof("mask"));
+
+
+• Function to replace a process with the program ‘ls’
+and no arguments
+
+execl("/bin/ls", "ls", NULL);
+
